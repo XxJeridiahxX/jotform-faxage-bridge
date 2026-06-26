@@ -1,12 +1,43 @@
-# Runs the bridge as a container. Reads all settings from .env (same dir).
-# The port is bound to 127.0.0.1 only — a reverse proxy (Caddy/nginx) terminates
-# TLS and forwards to it; the container is never exposed to the internet directly.
+# Runs the bridge as a hardened container. Reads settings from .env (same dir).
+# The port is bound to 127.0.0.1 only — a reverse proxy (Caddy/nginx) terminates TLS
+# and forwards to it; the container is never exposed to the internet directly.
 services:
   bridge:
     build: .
     image: mof-jotform-faxage-bridge:latest
     container_name: jotform-faxage-bridge
     env_file: .env
+    environment:
+      - DATA_DIR=/data
     ports:
       - "127.0.0.1:${PORT:-3000}:${PORT:-3000}"
+    volumes:
+      - bridge-data:/data        # dedup claims + disclosure audit log (durable)
     restart: unless-stopped
+    # --- hardening ---
+    read_only: true              # immutable root FS; app writes only to /data + tmpfs
+    tmpfs:
+      - /tmp
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    mem_limit: 512m
+    pids_limit: 256
+    cpus: "1.0"
+    # --- logging ---
+    # PRODUCTION: ship to a BAA-covered, ≥6-yr-retention CloudWatch group instead:
+    #   logging:
+    #     driver: awslogs
+    #     options:
+    #       awslogs-region: us-east-1
+    #       awslogs-group: /mof/jotform-faxage-bridge
+    #       awslogs-create-group: "true"
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "5"
+
+volumes:
+  bridge-data:

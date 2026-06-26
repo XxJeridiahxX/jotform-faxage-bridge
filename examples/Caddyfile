@@ -1,0 +1,32 @@
+# Caddyfile — TLS termination + reverse proxy for the fax bridge.
+# Caddy auto-provisions and auto-renews a Let's Encrypt cert for the domain.
+# Replace fax-bridge.example.com with your real subdomain (DNS A-record → this box's Elastic IP).
+
+fax-bridge.example.com {
+    # Cap inbound body size (defense-in-depth; the app also caps fields/files).
+    request_body {
+        max_size 30MB
+    }
+
+    reverse_proxy 127.0.0.1:3000 {
+        header_up X-Real-IP {remote_host}
+    }
+
+    # IMPORTANT: redact the ?token= secret (it gates all faxing) from access logs.
+    # Verify the `query` filter on your Caddy version; alternatively drop access logging
+    # for the webhook path entirely.
+    log {
+        output file /var/log/caddy/fax-bridge-access.log {
+            roll_size 50MB
+            roll_keep 10
+        }
+        format filter {
+            request>uri query {
+                delete token
+            }
+        }
+    }
+
+    # Optional: edge rate-limiting requires the caddy-ratelimit plugin. The app already
+    # rate-limits per IP (RATE_LIMIT_PER_MIN), so this is belt-and-suspenders.
+}

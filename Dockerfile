@@ -1,15 +1,24 @@
-FROM node:18-alpine
+# Active LTS. For production, pin by digest:
+#   docker pull node:22-alpine && docker inspect --format='{{index .RepoDigests 0}}' node:22-alpine
+# then replace the tag below with node:22-alpine@sha256:<digest>.
+FROM node:22-alpine
 
 WORKDIR /app
 
-# Install production dependencies against the committed lockfile (reproducible).
+# Install production deps against the committed lockfile, then fail the build on any
+# high+ severity advisory (supply-chain gate).
 COPY package.json package-lock.json ./
-RUN npm ci --omit=dev
+RUN npm ci --omit=dev && npm audit --omit=dev --audit-level=high
 
 # Application code only (see .dockerignore for what is excluded).
 COPY src ./src
 
+# Persistent state dir (dedup claims + disclosure audit log); mounted as a volume at runtime.
+RUN mkdir -p /data && chown node:node /data
+VOLUME ["/data"]
+
 ENV NODE_ENV=production
+ENV DATA_DIR=/data
 EXPOSE 3000
 
 # Run as the non-root user that ships with the node image.
