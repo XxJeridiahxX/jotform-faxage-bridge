@@ -31,7 +31,7 @@ services:
     #     driver: awslogs
     #     options:
     #       awslogs-region: us-east-1
-    #       awslogs-group: /mof/jotform-faxage-bridge
+    #       awslogs-group: /jotform-faxage-bridge
     #       awslogs-create-group: "true"
     logging:
       driver: json-file

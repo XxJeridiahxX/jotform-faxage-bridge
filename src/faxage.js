@@ -6,10 +6,9 @@ const FormData = require("form-data");
 const MAX_FAX_BYTES = 40 * 1024 * 1024;
 
 /**
- * Send a fax via the Faxage HTTPS API. Ported from the proven MOF backend sender
- * (mof-emr-backend/src/utils/common.js sendFax): multipart POST with operation=sendfax
- * and a base64-encoded PDF in faxfiledata[0]; success is signalled by a "JOBID: <n>"
- * token in the response body.
+ * Send a fax via the Faxage HTTPS API: a multipart POST with operation=sendfax and a
+ * base64-encoded PDF in faxfiledata[0]; success is signalled by a "JOBID: <n>" token in
+ * the response body.
  *
  * Returns one of:
  *   { ok: true,  jobId, raw }                 — confirmed queued
@@ -24,7 +23,7 @@ async function sendFax({ faxTo, pdfBase64, fileName, recipName, tagName, tagNumb
   form.append("password", cfg.faxage.password);
   if (cfg.faxage.callerid) form.append("callerid", cfg.faxage.callerid);
   form.append("faxno", String(faxTo).replace(/[^0-9]/g, ""));
-  form.append("recipname", recipName || "MOF");
+  form.append("recipname", recipName || "FaxBridge");
   form.append("operation", "sendfax");
   form.append("tagname", tagName || "JotformBridge");
   form.append("tagnumber", tagNumber || "");

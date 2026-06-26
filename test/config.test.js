@@ -9,7 +9,7 @@ const SECRET = "x".repeat(40); // >= 32 chars, not the change-me default
 const baseEnv = {
   SHARED_SECRET: SECRET,
   JOTFORM_API_KEY: "key123",
-  FAX_DEST: "1-877-540-0750",
+  FAX_DEST: "1-555-555-0123",
   FAXAGE_USERNAME: "user",
   FAXAGE_COMPANY: "70641",
   FAXAGE_PASSWORD: "pass",
@@ -21,7 +21,7 @@ test("buildConfig succeeds with required vars and applies defaults", () => {
   assert.equal(cfg.webhookPath, "/jotform-fax");
   assert.equal(cfg.jotform.apiBase, "https://hipaa-api.jotform.com");
   assert.equal(cfg.jotform.pdfMode, "generatePDF"); // new default
-  assert.equal(cfg.faxDest, "18775400750"); // digits only
+  assert.equal(cfg.faxDest, "15555550123"); // digits only
   assert.equal(cfg.tokenHeader, "x-webhook-token");
   assert.equal(cfg.rateLimitPerMin, 60);
 });
@@ -80,5 +80,5 @@ test("parseFormFaxMap rejects reserved keys (prototype pollution guard)", () => 
 test("destinationFor returns per-form override else default", () => {
   const cfg = buildConfig({ ...baseEnv, FORM_FAX_MAP: '{"999":"19185551234"}' });
   assert.equal(destinationFor("999", cfg), "19185551234");
-  assert.equal(destinationFor("123", cfg), "18775400750");
+  assert.equal(destinationFor("123", cfg), "15555550123");
 });

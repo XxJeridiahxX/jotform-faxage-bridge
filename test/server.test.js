@@ -14,7 +14,7 @@ const SECRET = "t".repeat(40);
 const BASE_ENV = {
   SHARED_SECRET: SECRET,
   JOTFORM_API_KEY: "k",
-  FAX_DEST: "18775400750",
+  FAX_DEST: "15555550123",
   FAXAGE_USERNAME: "u",
   FAXAGE_COMPANY: "c",
   FAXAGE_PASSWORD: "p",
@@ -116,7 +116,7 @@ test("happy path faxes to FAX_DEST, returns JOBID, and records a disclosure", as
     const res = await post(base, config.webhookPath, { fields: ids("55", "77"), token: SECRET });
     assert.equal(res.status, 200);
     assert.equal((await res.json()).jobId, "12345");
-    assert.deepEqual(calls.fax, ["18775400750"]);
+    assert.deepEqual(calls.fax, ["15555550123"]);
     const log = fs.readFileSync(store.paths.disclosureLog, "utf8");
     assert.match(log, /"outcome":"sent"/);
     assert.match(log, /"jobId":"12345"/);
@@ -145,7 +145,7 @@ test("SB-1: a duplicate submission is suppressed (faxed exactly once)", async ()
     assert.equal(r1.status, 200);
     assert.equal(r2.status, 200);
     assert.equal((await r2.json()).status, "duplicate_ignored");
-    assert.deepEqual(calls.fax, ["18775400750"]); // only one fax
+    assert.deepEqual(calls.fax, ["15555550123"]); // only one fax
   });
 });
 

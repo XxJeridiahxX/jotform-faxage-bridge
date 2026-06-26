@@ -21,9 +21,9 @@ Jotform submission ──webhook(HTTPS)──▶ bridge ──fetch unprotected 
                                                               + append PHI-disclosure audit record
 ```
 
-> **MOF deployment note:** the default `FAX_DEST` is `1-877-540-0750`, MOF's own Faxage
-> *inbound* number. Faxing there auto-ingests each document into the existing MOF inbound-fax
-> dashboard pipeline.
+> **Tip — dashboard ingestion:** point `FAX_DEST` at your fax provider's own *inbound* number,
+> and each submission lands in your existing inbound-fax dashboard/queue automatically — turning
+> "form submitted" into "document in your system" with no extra integration.
 
 ---
 

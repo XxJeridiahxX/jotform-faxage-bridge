@@ -3,9 +3,9 @@
 This explains how to make a Jotform form **automatically fax itself** when it's submitted,
 and how to stop it. You do everything inside Jotform — no developer needed.
 
-When a form is connected, every submission is sent as a fax automatically (for MOF, it lands
-in the inbound-fax dashboard). Connecting or disconnecting a form is just adding or removing
-one **webhook** on that form.
+When a form is connected, every submission is sent as a fax automatically (it lands at the
+configured fax destination — e.g. your inbound-fax dashboard). Connecting or disconnecting a
+form is just adding or removing one **webhook** on that form.
 
 ---
 
@@ -48,7 +48,7 @@ Repeat for each form you want to fax. The **same URL** is used for every form.
 ## Test that it worked
 
 1. Open the form's public link and submit one **test entry** (use non-real data).
-2. Within a minute, the document should appear in the **MOF inbound-fax dashboard**.
+2. Within a minute, the document should arrive at the configured fax destination (e.g. your inbound-fax dashboard).
 3. If it shows up and opens normally (no password prompt), the form is connected correctly.
 
 ---
