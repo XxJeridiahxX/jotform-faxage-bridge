@@ -1,7 +1,7 @@
 # Active LTS. For production, pin by digest:
 #   docker pull node:22-alpine && docker inspect --format='{{index .RepoDigests 0}}' node:22-alpine
 # then replace the tag below with node:22-alpine@sha256:<digest>.
-FROM node:22-alpine
+FROM node:26-alpine
 
 WORKDIR /app
 
