@@ -164,7 +164,7 @@ To send a specific form to a different fax number, add it to `FORM_FAX_MAP` (a c
 ## Security & HIPAA
 
 Reviewed adversarially before release — see **[docs/SECURITY-REVIEW.md](docs/SECURITY-REVIEW.md)** for the full
-findings and remediation status. Highlights:
+security & HIPAA posture. Highlights:
 
 - **Exactly-once delivery** via a durable, atomic `submissionId` claim; an ambiguous fax-provider response retains
   the claim rather than risk a duplicate.
