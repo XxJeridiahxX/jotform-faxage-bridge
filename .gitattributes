@@ -1,0 +1,5 @@
+# Normalize line endings to LF in the repo so files are correct on the Linux EC2.
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.pdf binary

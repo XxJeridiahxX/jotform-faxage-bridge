@@ -1,0 +1,12 @@
+# Runs the bridge as a container. Reads all settings from .env (same dir).
+# The port is bound to 127.0.0.1 only — a reverse proxy (Caddy/nginx) terminates
+# TLS and forwards to it; the container is never exposed to the internet directly.
+services:
+  bridge:
+    build: .
+    image: mof-jotform-faxage-bridge:latest
+    container_name: jotform-faxage-bridge
+    env_file: .env
+    ports:
+      - "127.0.0.1:${PORT:-3000}:${PORT:-3000}"
+    restart: unless-stopped
