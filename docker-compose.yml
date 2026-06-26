@@ -4,7 +4,7 @@
 services:
   bridge:
     build: .
-    image: mof-jotform-faxage-bridge:latest
+    image: jotform-faxage-bridge:latest
     container_name: jotform-faxage-bridge
     env_file: .env
     environment:

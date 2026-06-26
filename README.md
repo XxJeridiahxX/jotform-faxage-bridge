@@ -1,4 +1,4 @@
-# mof-jotform-faxage-bridge
+# jotform-faxage-bridge
 
 A small, **reusable, configuration-driven** service that automatically faxes Jotform
 submissions through the **Faxage** API — built for a HIPAA/PHI workflow.

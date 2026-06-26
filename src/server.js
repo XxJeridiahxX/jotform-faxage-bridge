@@ -71,7 +71,7 @@ function createApp(deps) {
   });
 
   app.get("/health", (_req, res) =>
-    res.status(200).json({ status: "ok", service: "mof-jotform-faxage-bridge" }),
+    res.status(200).json({ status: "ok", service: "jotform-faxage-bridge" }),
   );
 
   app.post(config.webhookPath, limiter, requireToken, upload.any(), async (req, res) => {

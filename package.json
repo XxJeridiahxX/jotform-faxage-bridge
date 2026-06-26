@@ -1,5 +1,5 @@
 {
-  "name": "mof-jotform-faxage-bridge",
+  "name": "jotform-faxage-bridge",
   "version": "1.0.0",
   "private": true,
   "description": "Reusable, configuration-driven bridge that faxes Jotform submissions through the Faxage API.",

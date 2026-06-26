@@ -1,4 +1,4 @@
-# Security & HIPAA Review — `mof-jotform-faxage-bridge`
+# Security & HIPAA Review — `jotform-faxage-bridge`
 
 Pre-production adversarial review of this PHI webhook (Jotform → Faxage) for a BAA-covered HIPAA EC2
 (Docker behind Caddy/TLS). Conducted 2026-06-26 by a multi-agent panel (AppSec, HIPAA Security Rule,
